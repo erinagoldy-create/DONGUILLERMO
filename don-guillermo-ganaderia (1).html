@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Don Guillermo">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2e7d32">
+    <title>Don Guillermo - Gestión Agropecuaria</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIkRvbiBHdWlsbGVybW8iLCAic2hvcnRfbmFtZSI6ICJEb24gR3VpbGxlcm1vIiwgImRlc2NyaXB0aW9uIjogIkdlc3Rpw7NuIGRlIEdhbmFkZXLDrWEgLSBSb2RlbywgYW5pbWFsZXMgeSBldmVudG9zIiwgInN0YXJ0X3VybCI6ICIuLyIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjZThmNWU5IiwgInRoZW1lX2NvbG9yIjogIiMyZTdkMzIiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCc+PHJlY3QgZmlsbD0nJTIzMmU3ZDMyJyB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcvPjx0ZXh0IHk9Jzc1JyB4PSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZm9udC1zaXplPSc2MCcgZmlsbD0nd2hpdGUnPvCfkIQ8L3RleHQ+PC9zdmc+IiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn0sIHsic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCw8c3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnPjxyZWN0IGZpbGw9JyUyMzJlN2QzMicgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnLz48dGV4dCB5PSc3NScgeD0nNTAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZvbnQtc2l6ZT0nNjAnIGZpbGw9J3doaXRlJz7wn5CEPC90ZXh0Pjwvc3ZnPiIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9XX0=">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232e7d32' width='100' height='100'/><text y='75' x='50' text-anchor='middle' font-size='60' fill='white'>🐄</text></svg>">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #e8f5e9; padding: 15px; }
+        .container { max-width: 800px; margin: 0 auto; padding-bottom: 100px; }
+        .header { text-align: center; padding: 30px 15px 20px; }
+        .header h1 { font-size: 2.5rem; color: #2e7d32; margin-bottom: 10px; }
+        .card { background: white; border-radius: 20px; padding: 25px 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: 4px solid; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
+        .card.ganaderia { border-color: #2e7d32; }
+        .card.agricultura { border-color: #f57c00; }
+        .card.lluvias { border-color: #1976d2; }
+        .card.reportes { border-color: #7b1fa2; }
+        .card:active { transform: scale(0.98); background: #f5f5f5; }
+        .card-icon { font-size: 3.5rem; margin-bottom: 15px; }
+        .card-title { font-size: 1.6rem; font-weight: bold; margin-bottom: 10px; }
+        .card.ganaderia .card-title { color: #2e7d32; }
+        .card.agricultura .card-title { color: #f57c00; }
+        .card.lluvias .card-title { color: #1976d2; }
+        .card.reportes .card-title { color: #7b1fa2; }
+        .card-desc { font-size: 1rem; color: #666; margin-bottom: 12px; }
+        .card-stats { background: #f5f5f5; padding: 12px; border-radius: 8px; font-weight: bold; }
+        .btn { display: block; width: 100%; background: #2e7d32; color: white; border: none; padding: 18px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 12px; margin: 12px 0; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .btn:active { transform: scale(0.97); }
+        .btn-secondary { background: #f57c00; }
+        .btn-gray { background: #757575; }
+        .btn-danger { background: #d32f2f; }
+        .btn-blue { background: #1976d2; }
+        .btn-purple { background: #7b1fa2; }
+        .section { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .section h2 { font-size: 1.6rem; color: #2e7d32; margin-bottom: 15px; }
+        .item { background: #f8f9fa; padding: 20px 15px; margin-bottom: 12px; border-radius: 12px; border-left: 5px solid #2e7d32; cursor: pointer; transition: background 0.2s; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
+        .item:hover { background: #e9ecef; }
+        .item:active { background: #dee2e6; }
+        .item.agri { border-left-color: #f57c00; }
+        .item.lluvia { border-left-color: #1976d2; }
+        .item-title { font-size: 1.3rem; font-weight: bold; color: #2e7d32; margin-bottom: 8px; }
+        .item.agri .item-title { color: #f57c00; }
+        .item.lluvia .item-title { color: #1976d2; }
+        .item-info { font-size: 0.95rem; color: #555; margin: 5px 0; }
+        .item-badge { display: inline-block; background: #4caf50; color: white; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; margin: 8px 5px 0 0; }
+        .hidden { display: none !important; }
+        .empty { text-align: center; padding: 50px 20px; color: #999; font-size: 1.1rem; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 9999; overflow-y: auto; }
+        .modal.active { display: flex; align-items: flex-start; padding: 20px 10px; }
+        .modal-content { width: 100%; max-width: 600px; margin: auto; background: white; border-radius: 20px; overflow: hidden; }
+        .modal-header { background: #2e7d32; color: white; padding: 20px; }
+        .modal-header.agri { background: #f57c00; }
+        .modal-header.lluvia { background: #1976d2; }
+        .modal-header h3 { font-size: 1.4rem; }
+        .modal-body { padding: 25px 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: bold; font-size: 1.05rem; margin-bottom: 8px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px 12px; font-size: 1rem; border: 2px solid #ddd; border-radius: 10px; }
+        .form-group select { background: white; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #323232; color: white; padding: 15px 25px; border-radius: 10px; z-index: 99999; opacity: 0; transition: opacity 0.3s; }
+        .toast.show { opacity: 1; }
+        .evento-item { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; border-radius: 8px; margin: 8px 0; }
+        .evento-item .evento-title { font-weight: bold; color: #1565c0; font-size: 0.95rem; }
+        .evento-item .evento-desc { color: #555; font-size: 0.9rem; margin-top: 4px; }
+        .chart-container { background: white; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .chart-title { font-size: 1.4rem; color: #2e7d32; margin-bottom: 15px; font-weight: bold; }
+        .stat-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin: 10px 0; text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: bold; }
+        .stat-label { font-size: 1rem; opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HOME -->
+        <div id="screen-home">
+            <div class="header">
+                <h1>🌾 DON GUILLERMO</h1>
+                <p>Gestión del Rodeo</p>
+            </div>
+            
+            <div class="card ganaderia" id="card-ganaderia">
+                <div class="card-icon">🐄</div>
+                <div class="card-title">GANADERÍA</div>
+                <div class="card-desc">Gestión del rodeo</div>
+                <div class="card-stats" id="stats-ganado">0 animales</div>
+            </div>
+            
+            <button class="btn btn-purple" onclick="exportarTodo()">📥 DESCARGAR TODO (Excel)</button>
+            
+            <div id="install-container" style="display: none; margin-top: 20px;">
+                <button class="btn btn-blue" id="install-button" style="font-size: 1.1em;">
+                    📲 INSTALAR COMO APP EN TU CELULAR
+                </button>
+                <p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 10px;">
+                    Instalá Don Guillermo en tu pantalla de inicio para acceso rápido
+                </p>
+            </div>
+        </div>
+
+        <!-- GANADERIA -->
+        <div id="screen-ganaderia" class="hidden">
+            <button class="btn btn-gray" onclick="irA('home')">← Volver</button>
+            <div class="header"><h1>🐄 Ganadería</h1></div>
+            <button class="btn" onclick="nuevoAnimal()">+ NUEVO ANIMAL</button>
+            <div class="section">
+                <h2>Mis Animales</h2>
+                <div id="lista-animales">Cargando...</div>
+            </div>
+        </div>
+
+        <!-- DETALLE ANIMAL -->
+        <div id="screen-detalle-animal" class="hidden">
+            <button class="btn btn-gray" onclick="irA('ganaderia')">← Volver</button>
+            <div class="section" id="detalle-animal-contenido"></div>
+        </div>
+    </div>
+
+    <!-- MODAL ANIMAL -->
+    <div id="modal-animal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modal-animal-titulo">Nuevo Animal</h3></div>
+            <div class="modal-body">
+                <form onsubmit="guardarAnimal(event)">
+                    <div class="form-group">
+                        <label>Caravana *</label>
+                        <input type="text" id="animal-caravana" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="animal-nombre" placeholder="Ej: Loli, Mancha, etc.">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Nacimiento *</label>
+                        <input type="date" id="animal-fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sexo *</label>
+                        <select id="animal-sexo" required>
+                            <option value="hembra">🐄 Hembra</option>
+                            <option value="macho">🐂 Macho</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Raza *</label>
+                        <select id="animal-raza" required>
+                            <option value="aberdeen-angus">Aberdeen Angus</option>
+                            <option value="hereford">Hereford</option>
+                            <option value="brahman">Brahman</option>
+                            <option value="otra">Otra</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        <textarea id="animal-obs" rows="3" placeholder="Ej: Es hijo de Loli, tiene mancha blanca en la frente, etc."></textarea>
+                    </div>
+                    <button type="button" class="btn btn-gray" onclick="cerrar('animal')">Cancelar</button>
+                    <button type="submit" class="btn">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EVENTO -->
+    <div id="modal-evento" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Agregar Evento al Animal</h3></div>
+            <div class="modal-body">
+                <form onsubmit="guardarEvento(event)">
+                    <div class="form-group">
+                        <label>Tipo *</label>
+                        <select id="evento-tipo" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha *</label>
+                        <input type="date" id="evento-fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción *</label>
+                        <input type="text" id="evento-desc" required placeholder="Ej: Vacuna antiaftosa">
+                    </div>
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        <textarea id="evento-obs" rows="3" placeholder="Detalles adicionales"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-gray" onclick="cerrar('evento')">Cancelar</button>
+                    <button type="submit" class="btn btn-blue">Guardar Evento</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        let animales = [];
+        let lotes = [];
+        let lluvias = [];
+        let currentId = null;
+        let currentType = null;
+        let deferredPrompt = null;
+
+        // Registrar Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4gewogIGV2ZW50LndhaXRVbnRpbChjYWNoZXMub3BlbignZG9uLWd1aWxsZXJtby12MScpLnRoZW4oY2FjaGUgPT4gewogICAgcmV0dXJuIGNhY2hlLmFkZEFsbChbJy4vJ10pOwogIH0pKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZXZlbnQgPT4gewogIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGV2ZW50LnJlcXVlc3QpLnRoZW4ocmVzcG9uc2UgPT4gewogICAgICByZXR1cm4gcmVzcG9uc2UgfHwgZmV0Y2goZXZlbnQucmVxdWVzdCk7CiAgICB9KQogICk7Cn0pOw==')
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+
+        // Capturar evento de instalación PWA
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-container').style.display = 'block';
+        });
+
+        // Manejar click en botón de instalación
+        document.addEventListener('DOMContentLoaded', () => {
+            const installButton = document.getElementById('install-button');
+            if (installButton) {
+                installButton.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        if (outcome === 'accepted') {
+                            document.getElementById('install-container').style.display = 'none';
+                            toast('✅ App instalada!');
+                        }
+                        deferredPrompt = null;
+                    }
+                });
+            }
+        });
+
+        window.onload = function() {
+            cargar();
+            actualizar();
+            document.getElementById('animal-fecha').valueAsDate = new Date();
+            document.getElementById('evento-fecha').valueAsDate = new Date();
+            
+            // Event listener para el card de Ganadería
+            document.getElementById('card-ganaderia').addEventListener('click', function() {
+                irA('ganaderia');
+            });
+            
+            // También agregar touch events para mejor soporte móvil
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.background = '#f5f5f5';
+                }, {passive: true});
+                card.addEventListener('touchend', function() {
+                    this.style.background = 'white';
+                }, {passive: true});
+            });
+        };
+
+        function cargar() {
+            try {
+                const a = localStorage.getItem('ganadoData');
+                const l = localStorage.getItem('agriculturaData');
+                const ll = localStorage.getItem('lluviasData');
+                if (a && a !== 'null') animales = JSON.parse(a);
+                if (l && l !== 'null') lotes = JSON.parse(l);
+                if (ll && ll !== 'null') lluvias = JSON.parse(ll);
+            } catch(e) { console.error(e); }
+        }
+
+        function guardar() {
+            try {
+                localStorage.setItem('ganadoData', JSON.stringify(animales));
+                localStorage.setItem('agriculturaData', JSON.stringify(lotes));
+                localStorage.setItem('lluviasData', JSON.stringify(lluvias));
+            } catch(e) { toast('⚠️ Error al guardar'); }
+        }
+
+        function irA(p) {
+            document.querySelectorAll('[id^="screen-"]').forEach(el => el.classList.add('hidden'));
+            document.getElementById('screen-' + p).classList.remove('hidden');
+            
+            if (p === 'home') actualizar();
+            else if (p === 'ganaderia') setTimeout(mostrarAnimales, 50);
+            
+            window.scrollTo(0, 0);
+        }
+
+        let editandoId = null;
+
+        function nuevoAnimal() {
+            editandoId = null;
+            document.getElementById('modal-animal-titulo').textContent = 'Nuevo Animal';
+            document.getElementById('animal-caravana').value = '';
+            document.getElementById('animal-nombre').value = '';
+            document.getElementById('animal-fecha').valueAsDate = new Date();
+            document.getElementById('animal-sexo').value = 'hembra';
+            document.getElementById('animal-raza').value = 'aberdeen-angus';
+            document.getElementById('animal-obs').value = '';
+            document.getElementById('modal-animal').classList.add('active');
+        }
+
+        function editarAnimal(id) {
+            const a = animales.find(x => x.id === id);
+            if (!a) return;
+            editandoId = id;
+            document.getElementById('modal-animal-titulo').textContent = 'Editar Animal';
+            document.getElementById('animal-caravana').value = a.caravana || '';
+            document.getElementById('animal-nombre').value = a.nombre || '';
+            document.getElementById('animal-fecha').value = a.fechaNacimiento || '';
+            document.getElementById('animal-sexo').value = a.sexo || 'hembra';
+            document.getElementById('animal-raza').value = a.raza || 'aberdeen-angus';
+            document.getElementById('animal-obs').value = a.observaciones || '';
+            document.getElementById('modal-animal').classList.add('active');
+        }
+
+        function cerrar(m) { document.getElementById('modal-' + m).classList.remove('active'); }
+
+        function guardarAnimal(e) {
+            e.preventDefault();
+            const datos = {
+                caravana: document.getElementById('animal-caravana').value,
+                nombre: document.getElementById('animal-nombre').value,
+                fechaNacimiento: document.getElementById('animal-fecha').value,
+                sexo: document.getElementById('animal-sexo').value,
+                raza: document.getElementById('animal-raza').value,
+                observaciones: document.getElementById('animal-obs').value
+            };
+
+            if (editandoId !== null) {
+                const a = animales.find(x => x.id === editandoId);
+                if (a) Object.assign(a, datos);
+                guardar();
+                cerrar('animal');
+                mostrarAnimales();
+                toast('✅ Animal actualizado');
+                if (currentType === 'animal' && currentId === editandoId) verAnimal(editandoId);
+                editandoId = null;
+            } else {
+                animales.push({ id: Date.now(), ...datos, eventos: [] });
+                guardar();
+                cerrar('animal');
+                mostrarAnimales();
+                toast('✅ Animal guardado');
+            }
+        }
+
+        function mostrarAnimales() {
+            const el = document.getElementById('lista-animales');
+            if (!animales || animales.length === 0) {
+                el.innerHTML = '<div class="empty">No hay animales.<br><br>Tocá "+ NUEVO ANIMAL"</div>';
+                return;
+            }
+            
+            let html = '';
+            for (let i = 0; i < animales.length; i++) {
+                const a = animales[i];
+                html += `
+                    <div class="item item-animal" data-id="${a.id}">
+                        <div class="item-title">${a.sexo === 'macho' ? '🐂' : '🐄'} ${a.nombre || 'Caravana ' + a.caravana}</div>
+                        <div class="item-info">📋 ${a.caravana} | ${(a.raza || '').replace(/-/g, ' ')}</div>
+                        <div class="item-info">📅 ${a.fechaNacimiento || 'Sin fecha'}</div>
+                        ${a.observaciones ? `<div class="item-info">📝 ${a.observaciones}</div>` : ''}
+                        <span class="item-badge">${(a.eventos||[]).length} eventos</span>
+                        <div class="item-info" style="margin-top: 8px; color: #999; font-size: 0.9em;">👆 Toca para ver detalle</div>
+                    </div>
+                `;
+            }
+            el.innerHTML = html;
+            
+            // Agregar event listeners a los items
+            document.querySelectorAll('.item-animal').forEach(item => {
+                item.addEventListener('click', function() {
+                    verAnimal(parseInt(this.getAttribute('data-id')));
+                });
+            });
+        }
+
+        function verAnimal(id) {
+            const a = animales.find(x => x.id === id);
+            if (!a) return;
+            currentId = id;
+            currentType = 'animal';
+            
+            const eventos = (a.eventos || []).map(e => `
+                <div class="evento-item">
+                    <div class="evento-title">${e.tipo}</div>
+                    <div class="evento-desc"><strong>Descripción:</strong> ${e.descripcion}</div>
+                    <div class="evento-desc">📅 ${e.fecha}</div>
+                    ${e.observaciones ? `<div class="evento-desc"><strong>Obs:</strong> ${e.observaciones}</div>` : ''}
+                </div>
+            `).join('');
+            
+            document.getElementById('detalle-animal-contenido').innerHTML = `
+                <h2 style="margin-bottom: 20px;">${a.sexo === 'macho' ? '🐂' : '🐄'} ${a.nombre || 'Caravana ' + a.caravana}</h2>
+                <div style="background: #f5f5f5; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <div class="item-info" style="font-size: 1.1em;"><strong>📋 Caravana:</strong> ${a.caravana}</div>
+                    <div class="item-info" style="font-size: 1.1em;"><strong>🧬 Raza:</strong> ${(a.raza||'').replace(/-/g, ' ')}</div>
+                    <div class="item-info" style="font-size: 1.1em;"><strong>⚥ Sexo:</strong> ${a.sexo === 'macho' ? 'Macho' : 'Hembra'}</div>
+                    <div class="item-info" style="font-size: 1.1em;"><strong>📅 Nacimiento:</strong> ${a.fechaNacimiento}</div>
+                    ${a.observaciones ? `<div class="item-info" style="font-size: 1.1em; margin-top: 10px;"><strong>📝 Observaciones:</strong><br>${a.observaciones}</div>` : ''}
+                </div>
+                <button class="btn btn-blue" onclick="agregarEvento()" style="font-size: 1.2em;">➕ AGREGAR EVENTO</button>
+                <button class="btn btn-secondary" onclick="editarAnimal(${id})" style="font-size: 1.2em;">✏️ EDITAR DATOS</button>
+                <h3 style="margin: 25px 0 15px 0; color: #2e7d32; font-size: 1.5em;">📋 Historial (${(a.eventos||[]).length})</h3>
+                ${eventos || '<div class="empty">Sin eventos.<br><br>Tocá el botón azul arriba.</div>'}
+                <button class="btn btn-danger" onclick="eliminarAnimal(${id})" style="margin-top: 30px;">🗑️ ELIMINAR</button>
+            `;
+            irA('detalle-animal');
+        }
+
+        function eliminarAnimal(id) {
+            if (confirm('¿Eliminar este animal?')) {
+                animales = animales.filter(a => a.id !== id);
+                guardar();
+                toast('Eliminado');
+                irA('ganaderia');
+            }
+        }
+
+        function agregarEvento() {
+            const select = document.getElementById('evento-tipo');
+            select.innerHTML = `
+                <option value="💉 Vacunación">💉 Vacunación</option>
+                <option value="🏥 Curación">🏥 Curación</option>
+                <option value="✂️ Castración">✂️ Castración</option>
+                <option value="🍼 Parto">🍼 Parto</option>
+                <option value="⚖️ Pesaje">⚖️ Pesaje</option>
+                <option value="💰 Venta">💰 Venta</option>
+                <option value="⚰️ Muerte">⚰️ Muerte</option>
+                <option value="📝 Otro">📝 Otro</option>
+            `;
+            document.getElementById('modal-evento').classList.add('active');
+        }
+
+        function guardarEvento(e) {
+            e.preventDefault();
+            const evento = {
+                id: Date.now(),
+                tipo: document.getElementById('evento-tipo').value,
+                fecha: document.getElementById('evento-fecha').value,
+                descripcion: document.getElementById('evento-desc').value,
+                observaciones: document.getElementById('evento-obs').value
+            };
+            
+            const a = animales.find(x => x.id === currentId);
+            if (a) {
+                if (!a.eventos) a.eventos = [];
+                a.eventos.push(evento);
+                guardar();
+                verAnimal(currentId);
+            }
+            
+            cerrar('evento');
+            document.getElementById('evento-desc').value = '';
+            document.getElementById('evento-obs').value = '';
+            toast('✅ Evento agregado');
+        }
+
+        function exportarTodo() {
+            let csv = '';
+            
+            // Exportar Animales
+            csv += 'ANIMALES\n';
+            csv += 'Caravana,Nombre,Fecha Nac,Sexo,Raza,Observaciones,Eventos\n';
+            animales.forEach(a => {
+                csv += `"${a.caravana}","${a.nombre || ''}","${a.fechaNacimiento}","${a.sexo}","${a.raza}","${a.observaciones || ''}",${(a.eventos||[]).length}\n`;
+            });
+            
+            csv += '\n\n';
+            
+            // Exportar Lotes
+            csv += 'LOTES\n';
+            csv += 'Nombre,Hectareas,Cultivo,Observaciones,Eventos\n';
+            lotes.forEach(l => {
+                csv += `"${l.nombre}","${l.hectareas}","${l.cultivoActual || ''}","${l.observaciones || ''}",${(l.eventos||[]).length}\n`;
+            });
+            
+            csv += '\n\n';
+            
+            // Exportar Lluvias
+            csv += 'LLUVIAS\n';
+            csv += 'Fecha,Milimetros,Observaciones\n';
+            lluvias.forEach(ll => {
+                csv += `"${ll.fecha}","${ll.mm}","${ll.observaciones || ''}"\n`;
+            });
+            
+            // Descargar
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `don-guillermo-${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            toast('✅ Descargado! Abrilo con Excel');
+        }
+
+        function actualizar() {
+            document.getElementById('stats-ganado').textContent = 
+                animales.length === 0 ? '0 animales' : `${animales.length} animal${animales.length>1?'es':''}`;
+        }
+
+        function toast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        document.addEventListener('click', e => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
